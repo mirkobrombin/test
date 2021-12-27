@@ -15,12 +15,11 @@ jobs:
       - name: Compile
         run: |
           wine_version="6.23"
-          echo "::set-output name=release_version::${wine_version}"
+          echo "::set-output name=release_version::$wine_version"
           
       - name: Package
         run: |
           wine_version="6.23"
-          echo "::set-output name=release_version::${wine_version}"
           echo $wine_version > Test
           cat Test
     
