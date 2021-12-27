@@ -15,8 +15,10 @@ jobs:
           wine_version="6.23"
           
           echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
-          pacman -Syu --noconfirm base-devel sudo git
+          pacman -Syu --noconfirm base-devel sudo git wget
           
+      - name: Package
+        run: |
           wget https://github.com/mirkobrombin/test/releases/download/test/wine-tkg-staging-fsync-git-6.17.r0.g5f19a815-326-x86_64.pkg.tar.zst
           tar --use-compress-program=unzstd -xvf wine-tkg-*
           cd wine-tkg-*
