@@ -9,9 +9,16 @@ jobs:
     container: archlinux:latest
 
     steps:
+      - name: Get release version
+        id: vars
+        run: |
+          wine_version=$(cat VERSION)
+          echo "::set-output name=release_version::${wine_version:13}"
+          
       - uses: actions/checkout@v2
       - name: Compile
         run: |
+          
           echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
           pacman -Syu --noconfirm base-devel sudo git
           
@@ -19,7 +26,9 @@ jobs:
           cd wine-tkg-git
           
           curl https://raw.githubusercontent.com/bottlesdevs/build-tools/main/runners/vaniglia/wine-tkg.cfg >> customization.cfg
-          
+          sed -i "s/_staging_version=\"\"/_staging_version=\"v$wine_version\"/g" customization.cfg
+          sed -i "s/_plain_version=\"\"/_plain_version=\"wine-$wine_version\"/g" wcustomization.cfg
+
           useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           chown user -R . && cd wine-tkg-git
           
