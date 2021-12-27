@@ -17,9 +17,13 @@ jobs:
           wine_version="6.23"
           echo "::set-output name=release_version::${wine_version}"
           
-          echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
-          pacman -Syu --noconfirm base-devel sudo git wget
-          
       - name: Package
         run: |
           echo $wine_version
+    
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          draft: false
+          prerelease: false
+          automatic_release_tag: "caffe-${{ steps.vars.outputs.release_version }}"
