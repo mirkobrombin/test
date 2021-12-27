@@ -19,7 +19,8 @@ jobs:
           
       - name: Package
         run: |
-          echo $wine_version
+          echo $wine_version > Test
+          cat Test
     
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
