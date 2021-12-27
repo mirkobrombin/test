@@ -22,8 +22,4 @@ jobs:
           
       - name: Package
         run: |
-          echo ${{ steps.vars.outputs.release_version }}
-          wget https://github.com/mirkobrombin/test/releases/download/test/wine-tkg-staging-fsync-git-6.17.r0.g5f19a815-326-x86_64.pkg.tar.zst
-          tar --use-compress-program=unzstd -xvf wine-tkg-*
-          ls
-          mv usr /tmp/caffe-REL-x86_64
+          echo $wine_version
