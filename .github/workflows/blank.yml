@@ -22,7 +22,7 @@ jobs:
           
           curl https://raw.githubusercontent.com/bottlesdevs/build-tools/main/runners/vaniglia/wine-tkg.cfg >> customization.cfg
           sed -i "s/_staging_version=\"\"/_staging_version=\"v$wine_version\"/g" customization.cfg
-          sed -i "s/_plain_version=\"\"/_plain_version=\"wine-$wine_version\"/g" wcustomization.cfg
+          sed -i "s/_plain_version=\"\"/_plain_version=\"wine-$wine_version\"/g" customization.cfg
 
           useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           chown user -R . && cd wine-tkg-git
