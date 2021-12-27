@@ -9,15 +9,10 @@ jobs:
     container: archlinux:latest
 
     steps:
-      - name: Get release version
-        id: vars
-        run: |
-          wine_version=$(cat VERSION)
-          echo "::set-output name=release_version::${wine_version:13}"
-          
       - uses: actions/checkout@v2
       - name: Compile
         run: |
+          wine_version="6.23"
           
           echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
           pacman -Syu --noconfirm base-devel sudo git
@@ -37,6 +32,7 @@ jobs:
           sed -i "/'gst-plugins-good'      'lib32-gst-plugins-good'/d" PKGBUILD 
           
           su user -c "yes|PKGDEST=/tmp/wine-tkg makepkg --noconfirm -s"
+          
       - name: Archive the artifacts
         uses: actions/upload-artifact@v2
         with:
