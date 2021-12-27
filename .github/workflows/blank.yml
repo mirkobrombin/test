@@ -23,7 +23,7 @@ jobs:
           tar --use-compress-program=unzstd -xvf wine-tkg-*
           ls
           mv usr /tmp/caffe-REL-x86_64
-          cd /tmp && tar zcvf caffe-REL-x86_64-x86_64.tar.gz caffe-REL-x86_64-x86_64
+          cd /tmp && tar zcvf caffe-REL-x86_64.tar.gz caffe-REL-x86_64
           
       - name: Archive the artifacts
         uses: actions/upload-artifact@v2
